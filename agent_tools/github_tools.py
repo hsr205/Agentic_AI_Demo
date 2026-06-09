@@ -26,28 +26,52 @@ class GithubTools:
             self._logger.error(f"Exception Thrown: {e}")
             raise Exception
 
-    def get_single_repository_contents(self) -> None:
+    def get_single_repository_file_contents(self,
+                                            repository_name_str: str = "hsr205/Reinforcement-Learning-Trading-Agent",
+                                            file_name: str = "README.md") -> str:
 
         try:
 
-            repository: Repository = self._github_object.get_repo("hsr205/Reinforcement-Learning-Trading-Agent")
+            repository: Repository = self._github_object.get_repo(full_name_or_id=repository_name_str)
 
-            repository_content: list[ContentFile] | ContentFile = repository.get_contents("models/")
+            repository_content: list[ContentFile] | ContentFile = repository.get_contents(file_name)
 
             if isinstance(repository_content, ContentFile):
                 content_file: ContentFile = repository_content
-                self._logger.info(content_file.decoded_content.decode("utf-8"))
+                file_contents: str = content_file.decoded_content.decode("utf-8")
+                return file_contents
 
-            elif isinstance(repository_content, list):
+        except Exception as e:
+            self._logger.error(f"Exception Thrown: {e}")
+            raise Exception
+
+    def get_single_repository_directory_file_contents_dict(self,
+                                                      repository_name_str: str = "hsr205/Reinforcement-Learning-Trading-Agent",
+                                                      directory_name_str: str = "models") -> dict[str,str]:
+
+        result_dict:dict[str,str] = {}
+
+        try:
+
+            repository: Repository = self._github_object.get_repo(full_name_or_id=repository_name_str)
+
+            repository_content: list[ContentFile] | ContentFile = repository.get_contents(path=directory_name_str)
+
+            if isinstance(repository_content, list):
                 content_list: list[ContentFile] = repository_content
 
-                for element in content_list:
-                    if "__" in element.name:
+                for file_content in content_list:
+
+                    file_name_str:str = file_content.name
+
+                    if "__" in file_name_str:
                         continue
-                    self._logger.info(f"File Name: {element.name}")
-                    self._logger.info("=" * 100)
-                    self._logger.info(element.decoded_content.decode("utf-8"))
-                    self._logger.info("=" * 100)
+
+                    file_contents: str = file_content.decoded_content.decode("utf-8")
+
+                    result_dict[file_name_str] = file_contents
+
+            return result_dict
 
         except Exception as e:
             self._logger.error(f"Exception Thrown: {e}")
