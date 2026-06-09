@@ -3,3 +3,5 @@ class Constants:
     LOGGER_COLOR_WHITE: str = "\033[60m"
     LOGGER_COLOR_ORANGE: str = "\033[33m"
     LOGGER_COLOR_DARK_RED: str = "\033[31m"
+
+    TICKETMASTER_URL_ENDPOINT:str = "https://app.ticketmaster.com/discovery/v2/events.json"
