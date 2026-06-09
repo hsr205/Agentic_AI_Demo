@@ -8,11 +8,11 @@ from logger.logger import AppLogger
 
 class ClaudeAgent:
 
-    def __init__(self, model_name: str = "claude-haiku-4-5-20251001") -> None:
+    def __init__(self) -> None:
 
-        self._model_name: str = model_name
         self._config: Settings = Settings()
 
+        self._model_name: str = self._config.claude_model_name
         self._client: Anthropic = Anthropic(api_key=self._config.claude_api_key)
 
         self._logger = AppLogger.get_logger(self.__class__.__name__)
