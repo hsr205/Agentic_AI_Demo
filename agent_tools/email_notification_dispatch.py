@@ -20,8 +20,8 @@ class EmailNotificationDispatcher:
             self._logger.info("[DISPATCHER] Quiet termination triggered. Zero validated events passed.")
             return
 
-        self._logger.info(f"[DETERMINISTIC GATEWAY] Validated matches found: {len(matched_events)}")
-        self._logger.info(f"[DETERMINISTIC GATEWAY] Initiating secure Gmail SMTP transmission pipeline...")
+        self._logger.info(f"Validated matches found: {len(matched_events)}")
+        self._logger.info(f"Initiating secure Gmail SMTP transmission pipeline...")
 
 
         compiled_body_lines: list[str] = ["Greetings,\n\nOur agentic system located matching ticket deals:\n"]
