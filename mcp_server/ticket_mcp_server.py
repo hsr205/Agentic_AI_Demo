@@ -57,7 +57,7 @@ class TicketMCPServer:
             }
 
             try:
-                sys.stderr.write(f"[SERVER LOG] Hitting Ticketmaster for: '{keyword}'\n")
+                sys.stderr.write(f"Hitting Ticketmaster for: '{keyword}'\n")
                 sys.stderr.flush()
 
                 # TODO: After testing uncomment this
