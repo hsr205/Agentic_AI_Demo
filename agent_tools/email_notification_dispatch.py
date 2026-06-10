@@ -48,6 +48,6 @@ class EmailNotificationDispatcher:
                 with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
                     smtp.login(self._gmail_user, self._gmail_app_password)
                     smtp.send_message(msg)
-                self._logger.info(f"Successfully sent alert update to: {email_recipient}")
+                self._logger.info(f"Successfully email alert to: {email_recipient}")
             except Exception as e:
                 self._logger.exception(f"[CRITICAL FAILURE] Transmission aborted to {email_recipient}: {str(e)}")
