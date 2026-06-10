@@ -1,17 +1,15 @@
-from logging import Logger
-
-from logger.logger import AppLogger
+from client.client_orchestrator import ClientOrchestrator
 
 
 def main() -> int:
-    logger: Logger = AppLogger().get_logger(__name__)
-    try:
-        logger.info(f"Hello from main() method")
-        return 0
+    user_prompt_criteria: str = (
+        "Find upcoming events for the New York Knicks at Madison Square Garden "
+        "under $50 on 2026-06-10 containing 'Watch Party' in the name."
+    )
 
-    except Exception as e:
-        logger.exception(f"Exception Thrown: {e}")
-        raise Exception(e)
+    orchestration_engine = ClientOrchestrator()
+    status_exit_code: int = orchestration_engine.execute_pipeline(prompt=user_prompt_criteria)
+    return status_exit_code
 
 
 if __name__ == "__main__":
