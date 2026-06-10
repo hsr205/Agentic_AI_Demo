@@ -5,12 +5,13 @@ description = ""
 authors = [
     {name = "Henry Rothenberg",email = "hsr205@aol.com"}
 ]
-requires-python = ">=3.12"
+requires-python = ">=3.12,<4.0"
 dependencies = [
     "anthropic (>=0.107.1,<0.108.0)",
     "pydantic-settings (>=2.14.1,<3.0.0)",
     "pydantic (>=2.13.4,<3.0.0)",
-    "pygithub (>=2.9.1,<3.0.0)"
+    "pygithub (>=2.9.1,<3.0.0)",
+    "fastmcp (>=3.4.2,<4.0.0)"
 ]
 
 
