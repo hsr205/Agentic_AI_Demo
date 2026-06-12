@@ -18,7 +18,7 @@ class TicketMCPServer:
         self._api_key: str = self._config.ticketmaster_consumer_key
         self._api_secret: str = self._config.ticketmaster_consumer_secret
 
-        self.fast_mcp_app: FastMCP = FastMCP(
+        self.mcp: FastMCP = FastMCP(
             name="ticket-discovery-management-server",
             version="1.2.0"
         )
@@ -29,11 +29,11 @@ class TicketMCPServer:
         logging.basicConfig(level=logging.INFO, stream=sys.stderr, force=True)
 
     def run_stdio_transport(self) -> None:
-        self.fast_mcp_app.run(transport="stdio")
+        self.mcp.run(transport="stdio")
 
     def register_tools(self) -> None:
 
-        @self.fast_mcp_app.tool()
+        @self.mcp.tool()
         async def fetch_filtered_events(
                 keyword: str,
                 target_date: str,
@@ -132,6 +132,7 @@ class TicketMCPServer:
                 continue
 
         return response_list
+
 
 if __name__ == "__main__":
     ticket_mcp_server: TicketMCPServer = TicketMCPServer()
