@@ -27,20 +27,20 @@ class AgentOrchestrator:
             """
         )
 
-        # self._data_aggregation_agent: SpecializedAgent = SpecializedAgent(
-        #     name_str="Data_Aggregation_Agent",
+        # self._monte_carlo_simulation: SpecializedAgent = SpecializedAgent(
+        #     name_str="Monte_Carlo_Agent",
         #     client=self._client,
         #     model_name_str=self._config.claude_model_name,
         #     # TODO: Finish this system prompt
-        #     system_prompt="You are the Data Aggregation Specialist. Combine all CSV files in the data/ directory <METHOD_NAME_HERE>"
+        #     system_prompt="using the execute_monte_carlo_simulation  method"
         # )
 
-        # self._notification_agent: SpecializedAgent = SpecializedAgent(
+        # self._visualization_agent: SpecializedAgent = SpecializedAgent(
         #     name_str="Visual_Construction_Agent",
         #     client=self._client,
         #     model_name_str=self._config.claude_model_name,
         #     # TODO: Finish this system prompt
-        #     system_prompt="You are the Visual Construction Specialist. Create a visual for the data provided using the <METHOD_NAME_HERE>"
+        #     system_prompt="You are the Visual Construction Specialist. Create a visual for the data provided from the monte carlo simulation using the create_visualization_for_data_analysis method"
         # )
 
         self._logger = AppLogger.get_logger(self.__class__.__name__)
@@ -88,25 +88,28 @@ class AgentOrchestrator:
         else:
             self._logger.warning("[ORCHESTRATOR] Claude completed turn without generating a tool request block.")
 
-        # # Step 2: The Checkout Specialist (Financial Transaction)
-        # self._logger.info("Step 2: Routing to Purchasing Agent.")
-        # purchase_directive: str = "Execute the purchase for the best ticket in the payload."
-        # self._purchasing_agent.execute_turn(
-        #     prompt=purchase_directive,
-        #     schema_context=purchase_schema,
-        #     context_data=sieved_data_context
-        # )
-        #
-        # # Simulating the transaction receipt returned by the Purchasing Agent's tool call
-        # transaction_receipt: str = "TXN-tkt_01-998877"
-        #
-        # # Step 3: The Communications Specialist (Network Dispatch)
+        # execute_montecarlo_simulation_schema_dict: dict = await self._resolve_tool_schema(
+        #     tool_name="execute_montecarlo_simulation")
+
+        # TODO: Implement execute_montecarlo_simulation method as an agent
+        # # Step 2: Monte Carlo Simulation
         # self._logger.info("Step 3: Routing to Notification Agent.")
-        # notify_directive: str = f"Send the transaction receipt to {user_email}."
+        # monte_carlo_directive: str = "Execute the monte carlo simulation for 1,000 episodes"
+        # self._notification_agent.execute_turn(
+        #     prompt=monte_carlo_directive,
+        #     schema_context=execute_montecarlo_simulation_schema_dict,
+        # )
+
+        # visualization_schema_dict: dict = await self._resolve_tool_schema(
+        #     tool_name="execute_montecarlo_simulation")
+
+        # TODO: Implement create_data_visualization method as an agent
+        # # Step 3: The Visualization Specialist
+        # self._logger.info("Step 3: Routing to Visualization Agent.")
+        # notify_directive: str = ""
         # self._notification_agent.execute_turn(
         #     prompt=notify_directive,
-        #     schema_context=notify_schema,
-        #     context_data=f"Transaction Receipt: {transaction_receipt}"
+        #     schema_context=visualization_schema_dict,
         # )
 
         self._logger.info("Pipeline complete. Workflow successfully terminated.")
