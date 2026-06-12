@@ -1,4 +1,5 @@
 from anthropic import Anthropic
+from anthropic.types import Message
 
 from logger.logger import AppLogger
 
@@ -13,7 +14,7 @@ class SpecializedAgent:
         self._logger = AppLogger.get_logger(self.__class__.__name__)
 
     def execute_turn(self, prompt: str, schema_context: dict[str, str | dict[str, str | list[str]]],
-                     context_data: str | None = None) -> str:
+                     context_data: str | None = None) -> Message:
         """Runs an isolated evaluation turn using a pre-resolved structural tool schema context."""
         self._logger.info(f"[{self.name.upper()}] Waking up in isolated cognitive thread...")
 
@@ -33,12 +34,4 @@ class SpecializedAgent:
             messages=messages
         )
 
-        output_text: str = ""
-        for block in response.content:
-            if block.type == "text":
-                output_text += block.text
-            elif block.type == "tool_use":
-                self._logger.info(f"[{self.name.upper()}] Confirmed Tool Generation via Introspection: '{block.name}'")
-                output_text += f"\n[Agent invoked tool {block.name} with args: {block.input}]"
-
-        return output_text
+        return response
