@@ -27,6 +27,8 @@ class FinanceMCPServer:
     def run_stdio_transport(self) -> None:
         self.mcp.run(transport="stdio")
 
+
+    # TODO: Need to include the dates for each observation in the dataset
     def register_tools(self) -> None:
         @self.mcp.tool()
         def download_historical_stock_data(ticker_list: list[str], start_date_str: str, end_date_str: str, csv_path: str):
@@ -36,7 +38,7 @@ class FinanceMCPServer:
                 ticker_list: A list of stock ticker symbols (e.g., AAPL, GOOGL, TSLA).
                 start_date_str: The exact date of to begin fetching stock data from in ISO format YYYY-MM-DD (e.g., '2026-06-09').
                 end_date_str: The exact date of to end fetching stock data from in ISO format YYYY-MM-DD (e.g., '2026-06-09').
-                csv_path: The path to which the financial data is saved to for later data analysis (e.g., /Claude_Agent/data/historical_data.csv)
+                csv_path: The CSV path to which the financial data is saved to for later data analysis (e.g., /Claude_Agent/data/)
             """
 
             dataframe: pd.DataFrame = yf.download(tickers=ticker_list,
